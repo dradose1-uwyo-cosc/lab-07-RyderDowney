@@ -1,9 +1,9 @@
-# Your Name Here
+# Ryder Downey
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section: 
-# Sources, people worked with, help given to: 
+# Submission Date: 10/28/2024
+# Lab 07
+# Lab Section: 14
+# Sources, people worked with, help given to: John Jones
 # your
 # comments
 # here
@@ -17,11 +17,23 @@
     # If a user did not enter a number output a statement saying so
 # You will continue to prompt the user until a proper integer value is entered
 
-factorial = 1
-
-print(f"The result of the factorial based on the given bound is {factorial}")
+while(True):
+    factorial = 1
+    upper_bound = input("Type 'exit' to end. Upper Bound:")
+    if upper_bound.isdigit():
+        if int(upper_bound) < 0:
+            print("Must be a positive integer")
+        elif int(upper_bound) > 0:
+            for i in range(1, int(upper_bound)+1):
+                factorial = factorial * i 
+            print(factorial)
+    elif upper_bound == "exit":
+        break
+    else:
+        print("You need to enter a positive integer")    
 
 print("*"*75)
+
 # Create a while loop that prompts a user for input of an integer values
 # Sum all inputs. When the user enters 'exit' (regardless of casing) end the loop
 # Upon ending the loop print the sum
@@ -37,11 +49,20 @@ print("*"*75)
 # All this together means you will have an intensive while loop that includes multiple if statements, likely with some nesting 
 # The sum should start at 0 
 
-num_sum = 0 
-
-print(f"Your final sum is {num_sum}")
+num_sum = 0
+while True:
+    new_int = input("Type 'exit' to end. Pick a number: ")
+    if new_int.lower() == "exit":
+        print(f"Your final sum is {num_sum}")
+        break
+    elif new_int.lstrip('-').isdigit():  
+        new_int = int(new_int)  
+        num_sum += new_int  
+    else:
+        print("You need to enter a positive or negative integer!")
 
 print("*"*75)
+
 # Now you will be creating a two operand calculator
 # It will support the following operators: +,-,/,*,% 
 # So accepted input is of the form `operand operator operand` 
@@ -59,4 +80,47 @@ print("*"*75)
 # Print the result of the equation
 # Again, loop through prompting the user for input until `exit` in any casing is input 
 
-        
+while True:
+    user_input = input("Enter calculation (Type 'exit' to leave): ").strip()
+    if user_input.lower() == "exit":  
+        print("Goodbye!")
+        break
+
+    expression = user_input.replace(" ", "")  
+    result = None  
+    
+    # Addition
+    if "+" in expression:
+        operands = expression.split("+")
+        if operands[0].isdigit() and operands[1].isdigit(): #uses indexing to get operands
+            result = int(operands[0]) + int(operands[1])
+    # Subtraction
+    elif "-" in expression:
+        operands = expression.split("-")
+        if operands[0].isdigit() and operands[1].isdigit():
+            result = int(operands[0]) - int(operands[1])
+    # Multiplication
+    elif "*" in expression:
+        operands = expression.split("*")
+        if operands[0].isdigit() and operands[1].isdigit():
+            result = int(operands[0]) * int(operands[1])
+    # Division
+    elif "/" in expression:
+        operands = expression.split("/")
+        if operands[0].isdigit() and operands[1].isdigit():
+            # Check for division by zero
+            if int(operands[1]) != 0:
+                result = int(operands[0]) / int(operands[1])
+            else:
+                print("Error: Division by zero is undefined.")
+                continue
+    # Modulus
+    elif "%" in expression:
+        operands = expression.split("%")
+        if operands[0].isdigit() and operands[1].isdigit():
+            result = int(operands[0]) % int(operands[1])
+    
+    if result is not None:
+        print("Result:", result)
+    else:
+        print("Invalid input; please use 'operand operator operand' format.")
